@@ -1,3 +1,14 @@
+'''
+Task-1:
+Implement Stack
+Your script should contain three functions
+1. push
+2. pop
+3. peep
+User will be given choice to perform action from above three.
+Script should be kept running until user chooses to exit.
+'''
+
 # Stack Operations
 
 stack = []
