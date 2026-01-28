@@ -53,7 +53,7 @@ while True:
     elif choice == '3':
         peep()
     elif choice == '4':
-        print("Exiting...")
+        print("Exiting..")
         break
     else:
         print("Invalid Choice! Try Again")
