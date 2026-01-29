@@ -42,11 +42,17 @@ def c_dequeue():
 
 # Get Front (It returns front value from circular queue)
 def getFront():
-  print(f'Front is: {queue[front]}')
+    if front == rear and n == 0:
+        print("Circular Queue is Empty")
+    else:
+        print(f'Front is: {queue[front]}')
 
 # Get Raer (It returns raer value from circular queue)
 def getRear():
-  print(f'Rear is: {queue[rear]}')
+  if front == rear and n == 0:
+    print("Circular Queue is Empty")
+  else:
+    print(f'Rear is: {queue[rear]}')
 
 # Choice Menu
 while True:
