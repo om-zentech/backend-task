@@ -48,4 +48,4 @@ while True:
     print("Exiting..")
     break
   else:
-    print("Enter valid choice, Try Agin")
+    print("Enter valid choice, try Agin")
