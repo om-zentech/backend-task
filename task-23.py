@@ -16,12 +16,18 @@ def pattern(row):
       print(k,end=' ')
     print()
 
-number_of_row = int(input('Enter number of row: '))  # take input of number of rows from user
-if number_of_row > 0:
-    pattern(number_of_row)
-else:
-    print("Enter Positive number of rows only!")
-
+while True:
+  try:
+    number_of_row = int(input('Enter number of row: '))  # take input of number of rows from user
+    if number_of_row > 0:
+      pattern(number_of_row)
+    else:
+      print("Enter Positive number of rows only!")
+      continue
+    break
+  except ValueError:
+    print("Invalid input! Please enter a positive integer.")
+    
 '''
 time complexity: O(n^2)
 because loop runs n times and in each iteration it prints 2*i-2 numbers so 0+2+4+...+(2n-2) = n(n-1) = O(n^2)
