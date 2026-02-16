@@ -20,3 +20,8 @@ if number_of_row > 0:
     pattern(number_of_row)
 else:
    print("Enter Positive number of rows only!")
+  
+'''
+time complexity: O(n^2)
+because loop runs n times and in each iteration it prints i numbers so 1+2+3+...+n = n(n+1)/2 = O(n^2)
+'''
