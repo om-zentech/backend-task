@@ -15,11 +15,17 @@ def pattern(row):
     print('*'*(2*i-1),end=' ') # this line prints pattern after spaces
     print()
 
-number_of_row = int(input('Enter number of row: '))  # take input of number of rows from user
-if number_of_row > 0: 
-    pattern(number_of_row)
-else:
-   print("Enter Positive number of rows only!")
+while True:
+  try:
+    number_of_row = int(input('Enter number of row: '))  # take input of number of rows from user
+    if number_of_row > 0:
+      pattern(number_of_row)
+    else:
+      print("Enter Positive number of rows only!")
+      continue
+    break
+  except ValueError:
+    print("Invalid input! Please enter a positive integer.")
   
 '''
 time complexity: O(n^2)
