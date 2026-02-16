@@ -43,11 +43,17 @@ def pattern(n):
     for row in arr:
         print(" ".join(f"{x:2}" for x in row))
 
-number_of_row = int(input('Enter number of row: '))  # take input of number of rows from user
-if number_of_row > 0:
-    pattern(number_of_row)
-else:
-    print("Enter Positive number of rows only!")
+while True:
+  try:
+    number_of_row = int(input('Enter number of row: '))  # take input of number of rows from user
+    if number_of_row > 0:
+      pattern(number_of_row)
+    else:
+      print("Enter Positive number of rows only!")
+      continue
+    break
+  except ValueError:
+    print("Invalid input! Please enter a positive integer.")
 
 '''
 time complexity: O(n^2)
