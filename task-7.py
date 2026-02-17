@@ -11,24 +11,24 @@ Use one of the sorting algorithm that you have developed to sort list here
 static_list = [5,12,7,3,2,15,6]
 
 # Search element using BinarySearch
-def binarySearch(l,k):
+def binarySearch(s_list,k):
   low = 0
-  high = len(l)-1
+  high = len(s_list)-1
 
   # Sort the list using Selection sort
-  for i in range(len(l)):
+  for i in range(len(s_list)):
     min_value = i
-    for j in range(i+1,len(l)):
-      if l[min_value] > l[j]:
+    for j in range(i+1,len(s_list)):
+      if s_list[min_value] > s_list[j]:
         min_value = j
-    l[min_value],l[i] = l[i],l[min_value] 
-  print(f'Sorted List: {l}')
+    s_list[min_value],s_list[i] = s_list[i],s_list[min_value] 
+  print(f'Sorted List: {s_list}')
 
   while low <= high:
     mid = (low + high) // 2 # Set mid at middle index of list
-    if k == l[mid]: # Element found at mid index (Best Case)
+    if k == s_list[mid]: # Element found at mid index (Best Case)
       return mid
-    elif k > l[mid]: # Element present in right side of mid
+    elif k > s_list[mid]: # Element present in right side of mid
       low = mid+1
     else: # Element present in left side of mid 
       high = mid-1
