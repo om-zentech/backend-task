@@ -4,17 +4,28 @@ Pelindrome Number
 '''
 
 # Pelindrome Number
+def is_pelindrome():
+  while True:
+    try:      
+      number = int(input("Enter Number: "))
+      if number < 0:
+        print('Negative Number does not have a Pelindrome Number')
+        continue
+      break
+    except ValueError:
+      print("Invalid input. Please enter an integer.")
+      continue
+  copy_of_number = number  # Store number in temporary variable
+  reverse = 0
 
-n = int(input("Enter Number: "))
-temp = n  # Store number in temporary variable
-rev = 0
+  while copy_of_number > 0: 
+    last_digit = copy_of_number % 10 # It gives last digit of number
+    reverse = (reverse*10) + last_digit # Reverse number
+    copy_of_number //= 10 # Remove last digit of number and store in temporary variable
 
-while temp > 0: 
-  last_digit = temp % 10 # It gives last digit of number
-  rev = (rev*10) + last_digit # Reverse number
-  temp //= 10 # Remove last digit of number and store in temporary variable
+  if number == reverse:
+    return f'{number} is Pelindrome Number'
+  else:
+    return f'{number} is Not a Pelindrome Number'
 
-if n == rev:
-  print(f'{n} is Pelindrome Number')
-else:
-  print(f'{n} is Not a Pelindrome Number')
+print(is_pelindrome())
