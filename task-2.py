@@ -2,36 +2,35 @@
 Implement Queue You script should contain three functions
 1. enqueue
 2. dequeue
-3. peek 
+3. peek
 User will be given choice to perform action from above three. Script should be kept running until user chooses to exit.
 '''
 
 # Queue Operations
 
-queue = []
-
 # Enqueue Operation
-def enqueue():
+def enqueue(queue):
   element = input("Enter element: ")
   queue.append(element)
   print(f'{element} added to queue')
   print(f'Queue: {queue}')
 
 # Dequeue Operation
-def dequeue():
+def dequeue(queue):
   if len(queue) == 0:
     print("Queue is Empty")
-  else: 
+  else:
     print(f'{queue.pop(0)} removed from queue')
     print(f'Queue: {queue}')
 
 # Peek (gives frist element of queue)
-def peek():
+def peek(queue):
   if len(queue) == 0:
     print("Queue is Empty")
   else:
     print(f'{queue[0]} is first element of queue')
 
+queue_oprations = []
 # Choice Menu
 while True:
 
@@ -39,13 +38,13 @@ while True:
   ch = input("Enter Choice: ")
 
   if ch == '1':
-    enqueue()
+    enqueue(queue_oprations)
   elif ch == '2':
-    dequeue()
+    dequeue(queue_oprations)
   elif ch == '3':
-    peek()
+    peek(queue_oprations)
   elif ch == '4':
     print("Exiting..")
     break
   else:
-    print("Invalid choice, try again!")
+    print("Enter valid choice, Try Agin")
