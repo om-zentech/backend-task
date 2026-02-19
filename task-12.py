@@ -116,9 +116,7 @@ class Management:
     def create_user_input(self):
         while True:
             try:
-                name = input('Enter User Name (enter exit to cancle): ')
-                if name.lower() == 'exit':
-                  break
+                name = input('Enter User Name: ')
                 bank_name = input('Enter Bank Name: ')
                 balance = float(input('Enter Balance: '))
 
