@@ -26,7 +26,7 @@ class GameBoard:
             self.board_position[position] = sign
             return True
         return False
-  
+
     def check_winner(self, sign):
         for position in GameBoard.winning_positions:
             if all(self.board_position[i] == sign for i in position):
@@ -41,9 +41,9 @@ class Player:
     def __init__(self, sign):
         self.sign = sign
 
-    def make_player_move(self, board):
+    def make_player_move(self, game_board):
         try:
-            player_move = int(input(f"Player {self.sign}'s player_move (1-9): ")) - 1
+            player_move = int(input(f"Player {self.sign}'s move (1-9): ")) - 1
             return player_move
         except ValueError:
             return -1
@@ -51,10 +51,41 @@ class Player:
 
 class Computer(Player):
     def make_player_move(self, game_board):
-        available_positions = [i for i in range(9) if game_board.board_position[i] == ' ']
-        computer_choice = random.choice(available_positions)
-        return computer_choice
+        for i in range(9):
+            if game_board.board_position[i] == ' ':
+                game_board.board_position[i] = self.sign
+                if game_board.check_winner(self.sign):
+                    game_board.board_position[i] = ' '
+                    return i
+                game_board.board_position[i] = ' '
 
+        if self.sign == 'O':
+          opponent_sign = 'X'
+        else:
+          opponent_sign = 'O'
+        for i in range(9):
+            if game_board.board_position[i] == ' ':
+                game_board.board_position[i] = opponent_sign
+                if game_board.check_winner(opponent_sign):
+                    game_board.board_position[i] = ' '
+                    return i
+                game_board.board_position[i] = ' '
+
+        if game_board.board_position[4] == ' ':
+            return 4
+
+        corners = [(0,8), (2,6), (6,2), (8,0)]
+        for corner, opposite_corner in corners:
+            if game_board.board_position[corner] == opponent_sign and game_board.board_position[opposite_corner] == ' ':
+                return opposite_corner
+
+        for i in [0,2,6,8]:
+            if game_board.board_position[i] == ' ':
+                return i
+
+        for i in [1,3,5,7]:
+            if game_board.board_position[i] == ' ':
+                return i
 
 class StartGame:
     def __init__(self):
