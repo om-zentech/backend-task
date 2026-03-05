@@ -1,14 +1,18 @@
-from controller.management import Management
+from controller.atm_controller import ATMContoller
+from controller.user_contoller import UserController
+from controller.transaction_controller import TransactionController
 from models.user import User
 from models.atm import ATM
 
 class ATMView:
 
     def __init__(self):
-        self.management = Management()
+        self.atm_controller = ATMContoller()
+        self.user_controller = UserController()
+        self.transaction_controller = TransactionController()
 
     def display_account_info(self, user):
-        info = user.get_info()
+        info = User.get_info(user)
 
         print('\n-----Account Details-----')
         for key, value in info.items():
@@ -18,8 +22,8 @@ class ATMView:
     def setup_atms(self):
 
         atm_results = [
-            self.management.create_atm("A01", "BOB", 200000),
-            self.management.create_atm("A02", "HDFC", 300000)
+            self.atm_controller.create_atm("A01", "BOB", 200000),
+            self.atm_controller.create_atm("A02", "HDFC", 300000)
         ]
 
         for result in atm_results:
@@ -28,6 +32,14 @@ class ATMView:
                   f'ID: {atm.id}\n'
                   f'Bank: {atm.bank.bank_name}\n'
                   f'ATM Balance: {atm.initial_balance}')
+    
+    def setup_banks(self):
+        bank_names = ["BOB", "HDFC", "SBI"]
+
+        for bank_name in bank_names:
+            bank = self.atm_controller.create_bank(bank_name)
+            print(f'\n-----Bank Created-----\n'
+                  f'Name: {bank.bank_name}')
 
     def user_flow(self):
 
@@ -37,7 +49,7 @@ class ATMView:
                 bank_name = input('Enter Bank Name: ')
                 balance = float(input('Enter Balance: '))
 
-                result = self.management.create_user(name, bank_name, balance)
+                result = self.user_controller.create_user(name, bank_name, balance)
 
                 if not result["success"]:
                     print(result["message"])
@@ -65,7 +77,7 @@ class ATMView:
                 print(f"{atm_id} - {atm.bank.bank_name}")
 
             atm_id = input('\nSelect ATM ID for transaction: ')
-            atm = ATM.get(atm_id)
+            atm = ATM.get_atm(atm_id)
 
             if not atm:
                 print('\nATM not exist, try again!\n')
@@ -78,7 +90,7 @@ class ATMView:
             card_number = input('Enter Card Number: ')
             pin_number = input('Enter Pin: ')
 
-            user = User.get(card_number)
+            user = User.get_user(card_number)
 
             if not user:
                 print('\nUser not exist, try again!\n')
@@ -107,7 +119,7 @@ class ATMView:
             if choice == '1':
                 try:
                     amount = float(input('\nEnter amount to be deposit: '))
-                    result = self.management.deposit(user, atm, amount)
+                    result = self.transaction_controller.deposit(user, atm, amount)
 
                     if result["success"]:
                         print('\n----- Money Successfully Deposited to your account -----\n')
@@ -121,7 +133,7 @@ class ATMView:
             elif choice == '2':
                 try:
                     amount = float(input('\nEnter amount to be withdrawal: '))
-                    result = self.management.withdrawal(user, atm, amount)
+                    result = self.transaction_controller.withdrawal(user, atm, amount)
 
                     if result["success"]:
                         print('\n----- Money Successfully Withdraw from your Account -----\n')
@@ -152,11 +164,11 @@ class ATMView:
 
                     if update_choice == '1':
                         new_name = input('Enter new name: ')
-                        result = self.management.update_user(user, "name", new_name)
+                        result = self.user_controller.update_user(user, "name", new_name)
                         print(result["message"])
 
                     elif update_choice == '2':
-                        result = self.management.update_user(user, "pin")
+                        result = self.user_controller.update_user(user, "pin")
                         print(result["message"])
 
                     elif update_choice == '3':
@@ -166,7 +178,7 @@ class ATMView:
                         print('Invalid Input, try again!')
 
             elif choice == '6':
-                result = self.management.delete_user(user.card_number)
+                result = self.user_controller.delete_user(user.card_number)
                 print(result["message"])
                 if result["success"]:
                     break
@@ -180,8 +192,9 @@ class ATMView:
     def menu(self):
 
         self.setup_atms()
-
-        user = self.user_flow()
+        self.setup_banks()
+        self.user_flow()
+        
         logged_user = self.login_flow()
         atm = self.select_atm()
 

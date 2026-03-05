@@ -1,9 +1,10 @@
 import random
+from models.bank import Bank
 
 class User:
     users = {}
 
-    def __init__(self, name, bank, balance):
+    def __init__(self, name: str, bank: Bank, balance: float):
         self.name = name
         self.bank = bank
         self.balance = balance
@@ -37,7 +38,10 @@ class User:
             "card_number": self.card_number,
             "balance": self.balance
         }
+    
+    def del_user(self):
+        del User.users[self.card_number]
 
     @classmethod
-    def get(cls, card_number):
+    def get_user(cls, card_number):
         return cls.users.get(card_number)

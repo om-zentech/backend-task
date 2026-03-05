@@ -15,5 +15,5 @@ class ATM:
         self.initial_balance -= amount
 
     @classmethod
-    def get(cls, atm_id):
+    def get_atm(cls, atm_id):
         return cls.atms.get(atm_id)
